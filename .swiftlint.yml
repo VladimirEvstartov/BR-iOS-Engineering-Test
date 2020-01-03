@@ -1,0 +1,41 @@
+# Rules
+# Find all the available rules by running:
+# swiftlint rules
+disabled_rules: # rule identifiers to exclude from running
+  - identifier_name
+  - trailing_whitespace
+  - vertical_whitespace
+  - unused_optional_binding
+opt_in_rules: # some rules are only opt-in
+  - empty_count
+
+# Paths
+included: # paths to include during linting. `--path` is ignored if present.
+  - BR iOS Engineering Test
+excluded: # paths to ignore during linting. Takes precedence over `included`.
+  - BR iOS Engineering TestTests
+
+# Configurable rules can be customized from this configuration file
+# Binary rules can set their severity level
+force_cast: warning # implicitly
+force_try:
+  severity: warning # explicitly
+empty_count:
+  severity: warning
+void_return:
+  severity: warning
+# rules that have both warning and error levels, can set just the warning level
+# implicitly
+line_length: 200
+# they can set both implicitly with an array
+type_body_length:
+  - 300 # warning
+  - 400 # error
+# or they can set both explicitly
+file_length:
+  warning: 500
+  error: 1000
+
+# Reports
+reporter: "xcode" # reporter type (xcode, json, csv, checkstyle, junit, html, emoji)
+

@@ -1,0 +1,14 @@
+/* 
+  Localizable.strings
+  BR iOS Engineering Test
+
+  Created by Vladimir on 29.12.2019.
+  Copyright © 2019 Vladimir. All rights reserved.
+*/
+
+"LunchTitle" = "Lunch Tyme"; // title taken from blueprint
+"LunchTabBarTitle" = "lunch";
+"BadUrlError" = "Bad URL";
+"WrongMIMEType" = "Unexpected server response";
+"ErrorTitle" = "Error";
+"LabelOK" = "OK";
