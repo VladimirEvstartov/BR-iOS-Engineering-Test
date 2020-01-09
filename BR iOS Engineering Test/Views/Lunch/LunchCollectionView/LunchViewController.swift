@@ -14,6 +14,7 @@ class LunchViewController: BaseViewController {
     
     var presenter = LunchPresenter()
     private var topLeftCollectionItem: Int?
+    private let refreshControl = UIRefreshControl()
     private var layout: LunchCollectionViewLayout? {
         return collectionView?.collectionViewLayout as? LunchCollectionViewLayout
     }
@@ -23,6 +24,7 @@ class LunchViewController: BaseViewController {
         setupCollectionView()
         presenter.delegate = self
         presenter.updateRestaurants()
+        
     }
     
     override func setupNavigationBar() {
@@ -48,6 +50,8 @@ class LunchViewController: BaseViewController {
         if let layout = layout {
             layout.delegate = self
         }
+        refreshControl.addTarget(self, action: #selector(updateData), for: .valueChanged)
+        collectionView.refreshControl = refreshControl
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -56,11 +60,17 @@ class LunchViewController: BaseViewController {
         
         }
     }
+    
+    @objc private func updateData() {
+        refreshControl.beginRefreshing()
+        presenter.updateRestaurants()
+    }
 }
 
 // MARK: LunchPresentorDelegate
 extension LunchViewController: LunchPresentorDelegate {
     func dataFetchDidStarted() {
+        refreshControl.endRefreshing()
         view.addSubview(loadingView)
         loadingView.frame = view.bounds
         loadingView.startSpinner()
