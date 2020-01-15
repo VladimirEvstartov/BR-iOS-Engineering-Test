@@ -111,6 +111,10 @@ extension LunchViewController: UICollectionViewDelegate {
 
 // MARK: LunchLayoutDelelate
 extension LunchViewController: LunchLayoutDelelate {
+    var numberOfColumns: Int {
+        return traitCollection.horizontalSizeClass == .compact ? 1 : 2
+    }
+    
     func collectionView(_ collectionView: UICollectionView, heightForPhotoAt indexPath: IndexPath) -> CGFloat {
         guard let layout = layout, let image = presenter.modelForCellAt(section: indexPath.section, row: indexPath.row)?.backgroundImage else {return 0.0}
         return image.raito * layout.columnWidth

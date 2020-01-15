@@ -9,5 +9,6 @@
 import UIKit
 
 protocol LunchLayoutDelelate: class {
+    var numberOfColumns: Int {get}
     func collectionView(_ collectionView: UICollectionView, heightForPhotoAt indexPath: IndexPath) -> CGFloat
 }

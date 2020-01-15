@@ -10,8 +10,7 @@ import UIKit
 
 class LunchCollectionViewLayout: UICollectionViewLayout {
 
-    weak var delegate: LunchLayoutDelelate?
-    private let numberOfColumns = 2
+    weak var delegate: LunchLayoutDelelate!
     private let cellPadding: CGFloat = 1
     private var cache: [UICollectionViewLayoutAttributes] = []
     private var contentHeight: CGFloat = 0
@@ -22,7 +21,7 @@ class LunchCollectionViewLayout: UICollectionViewLayout {
     }
 
     var columnWidth: CGFloat {
-        return contentWidth / CGFloat(numberOfColumns)
+        return contentWidth / CGFloat(delegate.numberOfColumns)
     }
 
     override var collectionViewContentSize: CGSize {
@@ -38,17 +37,17 @@ class LunchCollectionViewLayout: UICollectionViewLayout {
       
         var xOffset: [CGFloat] = []
         
-        for column in 0..<numberOfColumns {
+        for column in 0..<delegate.numberOfColumns {
             xOffset.append(CGFloat(column) * columnWidth)
         }
         
         var column = 0
-        var yOffset: [CGFloat] = .init(repeating: 0, count: numberOfColumns)
+        var yOffset: [CGFloat] = .init(repeating: 0, count: delegate.numberOfColumns)
         
         for item in 0..<collectionView.numberOfItems(inSection: 0) {
             
             let indexPath = IndexPath(item: item, section: 0)
-            let photoHeight = delegate?.collectionView(collectionView, heightForPhotoAt: indexPath) ?? columnWidth
+            let photoHeight = delegate.collectionView(collectionView, heightForPhotoAt: indexPath)
             let height = cellPadding * 2 + photoHeight
             let frame = CGRect(x: xOffset[column], y: yOffset[column], width: columnWidth, height: height)
             let insetFrame = frame.insetBy(dx: cellPadding, dy: cellPadding)
@@ -60,7 +59,7 @@ class LunchCollectionViewLayout: UICollectionViewLayout {
           
             contentHeight = max(contentHeight, frame.maxY)
             yOffset[column] = yOffset[column] + height
-            column = column < (numberOfColumns - 1) ? (column + 1) : 0
+            column = column < (delegate.numberOfColumns - 1) ? (column + 1) : 0
         }
     }
     
